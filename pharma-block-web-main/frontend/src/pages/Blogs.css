@@ -1,0 +1,139 @@
+
+.blogs-hero {
+  background: linear-gradient(135deg, #6E59A5 0%, #9b87f5 100%);
+  padding: 150px 0 80px;
+  color: white;
+  text-align: center;
+}
+
+.blogs-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.blogs-subtitle {
+  font-size: 1.3rem;
+  max-width: 800px;
+  margin: 0 auto;
+  opacity: 0.9;
+}
+
+.blogs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+.blog-item {
+  height: 100%;
+}
+
+.blogs-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.pagination-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: white;
+  font-weight: 500;
+  transition: var(--transition);
+  color: var(--text-dark);
+}
+
+.pagination-btn:hover {
+  background-color: var(--background-gray);
+  border-color: var(--primary-color);
+}
+
+.pagination-btn.active {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.pagination-btn.next {
+  width: auto;
+  padding: 0 15px;
+}
+
+.blog-subscribe {
+  background-color: var(--background-gray);
+}
+
+.subscribe-box {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.subscribe-box h2 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+.subscribe-box p {
+  color: var(--text-light);
+  margin-bottom: 30px;
+}
+
+.subscribe-form {
+  display: flex;
+  gap: 10px;
+}
+
+.subscribe-form input {
+  flex: 1;
+  padding: 12px 20px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.subscribe-form input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+@media (max-width: 992px) {
+  .blogs-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .blogs-hero {
+    padding: 120px 0 60px;
+  }
+  
+  .blogs-title {
+    font-size: 2.5rem;
+  }
+  
+  .blogs-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .blogs-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .subscribe-form {
+    flex-direction: column;
+  }
+  
+  .subscribe-form input,
+  .subscribe-form .btn {
+    width: 100%;
+  }
+}

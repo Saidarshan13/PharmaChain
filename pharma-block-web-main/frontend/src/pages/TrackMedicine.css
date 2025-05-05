@@ -1,0 +1,360 @@
+
+.track-page {
+  min-height: 100vh;
+  padding: 120px 0 80px;
+}
+
+.track-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.track-title {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  text-align: center;
+  color: var(--text-dark);
+}
+
+.track-description {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 40px;
+  font-size: 1.1rem;
+  color: var(--text-medium);
+  line-height: 1.5;
+}
+
+.search-container {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin-bottom: 40px;
+}
+
+.search-form {
+  display: flex;
+  gap: 15px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.search-input:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+.search-btn {
+  background: linear-gradient(135deg, #6E59A5 0%, #9b87f5 100%);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.search-btn:hover {
+  background: linear-gradient(135deg, #5c4a8e 0%, #8a77de 100%);
+}
+
+.result-container {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+}
+
+.medicine-info {
+  margin-bottom: 30px;
+}
+
+.medicine-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.medicine-name {
+  font-size: 1.8rem;
+  color: var(--text-dark);
+}
+
+.medicine-id {
+  background-color: #f0f0f0;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  color: var(--text-medium);
+}
+
+.medicine-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.detail-item {
+  font-size: 1.1rem;
+}
+
+.detail-label {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--text-medium);
+  margin-bottom: 5px;
+}
+
+.detail-value {
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+/* Supply Chain Road UI Styles */
+.supply-chain-road {
+  margin-bottom: 40px;
+}
+
+.supply-chain-road h3 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: var(--text-dark);
+}
+
+.road-container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  margin: 30px 0;
+  padding: 20px 0;
+}
+
+.road-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(to right, #e0e0e0, #e0e0e0);
+  border-radius: 3px;
+  z-index: 1;
+  transform: translateY(-50%);
+}
+
+.road-stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 22%;
+  z-index: 2;
+  text-align: center;
+}
+
+.road-stage.completed .stage-icon {
+  background-color: #4CAF50;
+  border-color: #388E3C;
+}
+
+.road-stage.pending .stage-icon {
+  background-color: #FFC107;
+  border-color: #FFA000;
+}
+
+.stage-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid;
+  background-color: white;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.stage-icon svg {
+  color: white;
+  width: 30px;
+  height: 30px;
+}
+
+.check-icon {
+   position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #4CAF50;
+  border-radius: 50%;
+  padding: 2px;
+  width: 18px !important;
+  height: 18px !important;
+  color: #4CAF50; 
+}
+
+ .pending-icon {
+  position: absolute;
+ top: -5px;
+ right: -5px;
+ background-color: #eca62d;
+ border-radius: 50%;
+ padding: 2px;
+ width: 18px !important;
+ height: 18px !important;
+ color: #4CAF50; 
+}
+
+.pending-icon {
+  color: #FFC107;
+}
+
+.stage-info {
+  margin-top: 10px;
+}
+
+.stage-info h4 {
+  font-size: 1rem;
+  margin-bottom: 5px;
+  color: var(--text-dark);
+}
+
+.stage-info p {
+  font-size: 0.85rem;
+  color: var(--text-medium);
+  margin: 0;
+}
+
+.track-timeline {
+  position: relative;
+  padding-left: 30px;
+}
+
+.track-timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 9px;
+  height: 100%;
+  width: 2px;
+  background-color: var(--primary-color);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -30px;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+}
+
+.timeline-dot.completed {
+  background-color: #4CAF50;
+}
+
+.timeline-dot.pending {
+  background-color: #FFC107;
+}
+
+.timeline-content {
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  padding: 15px;
+}
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.timeline-title {
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.timeline-date {
+  color: var(--text-medium);
+  font-size: 0.9rem;
+}
+
+.timeline-description {
+  color: var(--text-medium);
+  font-size: 0.95rem;
+}
+
+.no-result {
+  text-align: center;
+  padding: 40px 0;
+  color: var(--text-medium);
+}
+
+.no-result svg {
+  display: block;
+  margin: 0 auto 20px;
+  width: 60px;
+  height: 60px;
+  color: #ddd;
+}
+
+@media (max-width: 768px) {
+  .search-form {
+    flex-direction: column;
+  }
+  
+  .medicine-details {
+    grid-template-columns: 1fr;
+  }
+  
+  .medicine-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .road-container {
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .road-stage {
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+    text-align: left;
+    gap: 20px;
+  }
+  
+  .road-line {
+    width: 6px;
+    height: 100%;
+    left: 30px;
+    top: 0;
+    transform: translateY(0);
+  }
+  
+  .stage-info {
+    margin-top: 0;
+  }
+}

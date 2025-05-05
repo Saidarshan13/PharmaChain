@@ -1,0 +1,97 @@
+
+.stakeholders-page {
+  min-height: 100vh;
+  padding: 120px 0 80px;
+}
+
+.stakeholders-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.stakeholders-title {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  text-align: center;
+  color: var(--text-dark);
+}
+
+.stakeholder-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.stakeholder-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stakeholder-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.stakeholder-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #6E59A5 0%, #9b87f5 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.stakeholder-icon svg {
+  width: 40px;
+  height: 40px;
+  color: white;
+}
+
+.stakeholder-name {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: var(--text-dark);
+}
+
+.stakeholder-description {
+  font-size: 1rem;
+  margin-bottom: 25px;
+  color: var(--text-medium);
+  line-height: 1.5;
+}
+
+.stakeholder-login-btn {
+  background: linear-gradient(135deg, #6E59A5 0%, #9b87f5 100%);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.stakeholder-login-btn:hover {
+  background: linear-gradient(135deg, #5c4a8e 0%, #8a77de 100%);
+}
+
+@media (max-width: 768px) {
+  .stakeholders-page {
+    padding: 100px 0 60px;
+  }
+  
+  .stakeholders-title {
+    font-size: 2rem;
+  }
+  
+  .stakeholder-cards {
+    grid-template-columns: 1fr;
+  }
+}
