@@ -128,7 +128,8 @@ const TrackMedicine = () => {
             timeline : [
               {
                 stage: "Raw Material Sourcing",
-                date: locationData.RMS?.locationTime || "",
+                coordinates:  locationData.RMS?.coordinates || "",
+                date: locationData.RMS?.locationTime +",  "+ locationData.RMS?.transactionTime || "",
                 status: stakeholders.MAN?.id ? "completed" : "pending",
                 actor: stakeholders.RMS?.name || "Unknown",
                 description: stakeholders.MAN?.id
@@ -137,6 +138,7 @@ const TrackMedicine = () => {
               },
               {
                 stage: "Manufacturing",
+                coordinates:  locationData.MAN?.coordinates || "",
                 date: locationData.MAN?.locationTime || "",
                 status: stakeholders.DIS?.id ? "completed" : "pending",
                 actor: stakeholders.MAN?.name || "Unknown",
@@ -146,6 +148,7 @@ const TrackMedicine = () => {
               },
               {
                 stage: "Distribution",
+                coordinates:  locationData.DIS?.coordinates || "",
                 date: locationData.DIS?.locationTime || "",
                 status: stage === "Retail Stage" || stage === "Medicine Sold" || stage === "Distribution Stage" ? "completed" : "pending",
                 actor: stakeholders.DIS?.name || "Unknown",
@@ -155,6 +158,7 @@ const TrackMedicine = () => {
               },
               {
                 stage: "Retail",
+                coordinates:  locationData.RET?.coordinates || "",
                 date: locationData.RET?.locationTime || "",
                 status: stage === "Retail Stage" || stage === "Medicine Sold" ? "completed" : "pending",
                 actor: stakeholders.RET?.name || "Unknown",
@@ -164,6 +168,7 @@ const TrackMedicine = () => {
               },
               {
                 stage: "Quality Verification",
+                coordinates:  locationData.SOL?.coordinates || "",
                 date: locationData.SOL?.locationTime || "",
                 status: stage === "Retail Stage" || stage === "Medicine Sold" ? "completed" : "pending",
                 actor: stakeholders.RET?.name || "Regulatory Body",

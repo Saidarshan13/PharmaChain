@@ -62,7 +62,7 @@ const SearchForm = ({ searchQuery, setSearchQuery, handleSearch }) => {
             <input 
               type="text" 
               className="search-input" 
-              placeholder="Enter Medicine ID (e.g., MED123456)" 
+              placeholder="Enter Medicine ID (e.g., MED1)" 
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);

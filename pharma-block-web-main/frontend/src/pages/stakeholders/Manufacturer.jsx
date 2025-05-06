@@ -6,6 +6,7 @@ import "../../components/StakeholderLogin.css";
 import Loader from "../../components/loader";
 import StyledAlert from "../../components/alert";
 import ErrorPage from "../../components/ErrorPage";
+import { QRCodeCanvas } from "qrcode.react";
 
 const Manufacturer = () => {
   const [Alert, setAlert] = useState("");
@@ -326,6 +327,7 @@ const Manufacturer = () => {
             <th>Longitude</th>
             <th>Date</th>
             <th>Time</th>
+            <th>QR code</th>
           </tr>
         </thead>
         <tbody>
@@ -337,6 +339,9 @@ const Manufacturer = () => {
               <td>{medicine.newMAN.longitude}</td>
               <td>{medicine.newMAN.date}</td>
               <td>{medicine.newMAN.time}</td>
+              <td>
+                <QRCodeCanvas value={`${medicine.id}`} size={128} />
+              </td>
             </tr>
           ))}
         </tbody>

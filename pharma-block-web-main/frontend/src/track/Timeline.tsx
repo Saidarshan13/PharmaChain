@@ -5,6 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 
 interface TimelineItem {
   stage: string;
+  coordinates: string;
   date: string;
   status: 'completed' | 'pending';
   actor: string;
@@ -42,10 +43,14 @@ const Timeline: React.FC<TimelineProps> = ({ timeline }) => {
                   <span className={`timeline-status ${item.status}`}>
                     {item.status === 'completed' ? 'Completed' : 'Pending'}
                   </span>
+                </div >
+                <div className = "timeline-data">
+                <div className="timeline-coordinates">
+                  {item.coordinates || ''}
                 </div>
                 <div className="timeline-date">
-                  {item.date || 'Pending'}
-                </div>
+                  {item.date || ''}
+                </div></div>
                 <div className="timeline-description">
                   <strong>{item.actor}</strong>: {item.description}
                 </div>
