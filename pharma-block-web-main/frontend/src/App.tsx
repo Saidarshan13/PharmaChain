@@ -13,7 +13,7 @@ import Footer from "./components/Footer";
 import ChatBox from "./components/ChatBox.jsx";
 import Stakeholders from "./pages/Stakeholders";
 import Owner from "./pages/Owner.jsx";
-import TrackMedicine from "./pages/TrackMedicine";
+import TrackMedicine from "./pages/TrackMedicine.jsx";
 import Supplier from "./pages/stakeholders/Supplier.jsx";
 import Manufacturer from "./pages/stakeholders/Manufacturer.jsx";
 import Distributor from "./pages/stakeholders/Distributor.jsx";

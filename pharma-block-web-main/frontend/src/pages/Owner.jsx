@@ -14,6 +14,7 @@ const Owner = () => {
   const [errorPage, setErrorPage] = useState(false);
   const [isLoading, setisLoading] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [showPopup2, setShowPopup2] = useState(false);
   const [RMSlist, setRMSlist] = useState([]);
   const [activeTab, setActiveTab] = useState('stakeholders'); //<---
   const [nextIds, setNextIds] = useState({});
@@ -186,9 +187,9 @@ const Owner = () => {
       } catch (error) {
           setAlert("Error approving request: " + error.message);
       }
-      setShowPopup(true);
+      setShowPopup2(true);
   setTimeout(() => {
-    setShowPopup(false);
+    setShowPopup2(false);
   }, 3000);
   };
 
@@ -422,7 +423,9 @@ const Owner = () => {
                 </tr>
               ))}
             </tbody>
-          </table></>}
+          </table>
+          {showPopup2 && <div className="popup2">✅ Medicine Appoved!</div>}
+          </>}
 
           </div>
         </div>
