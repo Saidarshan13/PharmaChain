@@ -5,15 +5,18 @@ import Web3 from "web3";
 import Loader from "../components/loader";
 import StyledAlert from "../components/alert";
 import ErrorPage from "../components/ErrorPage";
+import { useNavigate } from 'react-router-dom';
 
 
 const Owner = () => {
   
-  // const [activeComponent, setActiveComponent] = useState("");
+   const Navigate=useNavigate();
+     // const [activeComponent, setActiveComponent] = useState("");
   const [Alert, setAlert] = useState("");
   const [errorPage, setErrorPage] = useState(false);
   const [isLoading, setisLoading] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [showPopup2, setShowPopup2] = useState(false);
   const [RMSlist, setRMSlist] = useState([]);
   const [activeTab, setActiveTab] = useState('stakeholders'); //<---
   const [nextIds, setNextIds] = useState({});
@@ -186,9 +189,9 @@ const Owner = () => {
       } catch (error) {
           setAlert("Error approving request: " + error.message);
       }
-      setShowPopup(true);
+      setShowPopup2(true);
   setTimeout(() => {
-    setShowPopup(false);
+    setShowPopup2(false);
   }, 3000);
   };
 
@@ -422,7 +425,9 @@ const Owner = () => {
                 </tr>
               ))}
             </tbody>
-          </table></>}
+          </table>
+          {showPopup2 && <div className="popup2">✅ Medicine Appoved!</div>}
+          </>}
 
           </div>
         </div>
@@ -432,7 +437,7 @@ const Owner = () => {
             <div className="list-header">
               <h3>Medicine History</h3>
             </div>
-              {requests.length == 0 ? <h3 style={{ padding: '15px' }}
+              {Allmedicines.length == 0 ? <h3 style={{ padding: '15px' }}
               >No Medicinal History</h3>:
               <>
               <table className="list-items">
@@ -446,7 +451,7 @@ const Owner = () => {
                 </thead>
             <tbody>
     {Allmedicines.map((medicine, index) => (
-                <tr key={index}>
+                <tr key={index} onClick={()=>Navigate(`/trackMedicine/${medicine.id}`)}>
                   <td>{medicine.id}</td>
                   <td>{medicine.name}</td>
                   <td>{medicine.description}</td>

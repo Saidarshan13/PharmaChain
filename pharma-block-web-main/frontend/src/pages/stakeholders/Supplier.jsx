@@ -102,7 +102,7 @@ const Supplier = () => {
   useEffect(() => {
     loadWeb3();
     loadBlockchaindata().catch((err) => {
-      setAlert(`Error initializing: ${err.message || err}`);
+      setAlert(`Error initializing: Ganache is not Connected`);
       setErrorPage(true);
       setisLoading(false);
     });
@@ -114,12 +114,12 @@ const Supplier = () => {
       try {
         await window.ethereum.request({ method: "eth_requestAccounts" });
       } catch (error) {
-        alert("User denied account access or Account isn't connected");
+        setAlert("User denied account access or Account isn't connected");
       }
     } else if (window.web3) {
       window.web3 = new Web3(window.web3.currentProvider);
     } else {
-      alert("Non-Ethereum browser detected. You should consider MetaMask!");
+      setAlert("Non-Ethereum browser detected. You should consider MetaMask!");
     }
   };
 

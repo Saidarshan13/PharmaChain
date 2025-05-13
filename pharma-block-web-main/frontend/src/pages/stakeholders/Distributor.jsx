@@ -5,6 +5,8 @@ import Loader from "../../components/loader";
 import StyledAlert from "../../components/alert";
 import ErrorPage from "../../components/ErrorPage";
 import "../../components/StakeholderLogin.css";
+import { Html5QrcodeScanner } from "html5-qrcode";
+import "../../track/scanner.css";
 
 const Distributor = () => {
   const [SupplyChain, setSupplyChain] = useState();
@@ -29,6 +31,7 @@ const Distributor = () => {
       }
       return initialState;
     });
+  const [showScanner, setShowScanner] = useState(false);
 
   const handleChange = (id, value) => {
     SetDisBtn((prev) => ({ ...prev, [id]: DisBtn[id]+1 }));
@@ -93,6 +96,47 @@ const Distributor = () => {
     }, 3000);
   };
 
+  const handleScanAndDistribute = async (medicineId) => {
+    if (navigator.geolocation) {
+      setisLoading(true);
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const lat = position.coords.latitude.toFixed(6);
+          const lng = position.coords.longitude.toFixed(6);
+          const currentTime = new Date();
+          const timeStr = currentTime.toLocaleString();
+          setLatitude((prev) => ({ ...prev, [medicineId]: lat }));
+          setLongitude((prev) => ({ ...prev, [medicineId]: lng }));
+          setTimestamp((prev) => ({ ...prev, [medicineId]: timeStr }));
+          try {
+            // Fetch stage from blockchain
+            const stage = await SupplyChain.methods.showStage(medicineId).call();
+            if (stage === "Manufacturing Stage") {
+              const locationData = `${lat},${lng},${timeStr}`;
+              const receipt = await SupplyChain.methods
+                .Distribute(medicineId, locationData)
+                .send({ from: currentaccount });
+              if (receipt) loadBlockchaindata();
+              setShowPopup(true);
+              setTimeout(() => setShowPopup(false), 3000);
+            } else {
+              setAlert("Medicine is not eligible for distribution at this stage.");
+            }
+          } catch (err) {
+            setAlert("An error occurred during distribution!");
+          }
+          setisLoading(false);
+        },
+        (error) => {
+          setAlert("Error getting location: " + error.message);
+          setisLoading(false);
+        }
+      );
+    } else {
+      setAlert("Geolocation is not supported by this browser.");
+    }
+  };
+
   useEffect(() => {
     loadWeb3();
     loadBlockchaindata().catch((err) => {
@@ -101,6 +145,28 @@ const Distributor = () => {
       setisLoading(false);
     });
   }, []);
+
+  useEffect(() => {
+    if (showScanner) {
+      const scanner = new Html5QrcodeScanner('reader', {
+        qrbox: { width: 250, height: 250 },
+        fps: 5,
+      });
+      const onScanSuccess = (decodedText) => {
+        setShowScanner(false);
+        const medId = parseInt(decodedText.trim());
+        handleScanAndDistribute(medId);
+        scanner.clear();
+      };
+      const onScanError = (error) => {
+        // Optionally handle scan errors
+      };
+      scanner.render(onScanSuccess, onScanError);
+      return () => {
+        scanner.clear().catch(() => {});
+      };
+    }
+  }, [showScanner]);
 
   const loadWeb3 = async () => {
     if (window.ethereum) {
@@ -219,10 +285,20 @@ const Distributor = () => {
 
             <div className={`tab-content ${activeTab === 'medicine' ? 'active' : ''}`}>
               <div className="medicines-list">
-                <div className="list-header">
+                <div className="list-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <h3>Received Medicines</h3>
+                  <button type="button" className="scan-btn" onClick={() => setShowScanner(true)} style={{ height: '40px', borderRadius: '8px', background: 'linear-gradient(135deg, #6E59A5 0%, #9b87f5 100%)', color: 'white', fontWeight: 600, fontSize: '1rem', border: 'none', padding: '0 20px', cursor: 'pointer' }}>
+                    Scan QR
+                  </button>
                 </div>
-
+                {showScanner && (
+                  <div className="scanner-overlay">
+                    <div className="scanner-modal">
+                      <button className="close-button" onClick={() => setShowScanner(false)}>&times;</button>
+                      <div id="reader" className="scanner-box"></div>
+                    </div>
+                  </div>
+                )}
                 {Tablar.length === 0 ? (
                   <h3 style={{ padding: '15px' }}>No Received Medicines</h3>
                 ) : (

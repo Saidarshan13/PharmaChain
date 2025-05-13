@@ -41,10 +41,15 @@ export  const EthProvider = ({ children }) => {
     }
   }, []);
 
+  const disconnectWallet = () => {
+    setIsConnected(false);
+    setCurrentAccount(null);
+  };
+
   return (
     <>
         {Alert !== "" && <StyledAlert message={Alert} onClose={() => setAlert("")} />}
-    <EthContext.Provider value={{ isConnected, currentAccount, loadWeb3 }}>
+    <EthContext.Provider value={{ isConnected, currentAccount, loadWeb3, disconnectWallet }}>
       {children}
     </EthContext.Provider></>
   );

@@ -1,4 +1,3 @@
-
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "@/components/ui/toaster";
@@ -13,7 +12,7 @@ import Footer from "./components/Footer";
 import ChatBox from "./components/ChatBox.jsx";
 import Stakeholders from "./pages/Stakeholders";
 import Owner from "./pages/Owner.jsx";
-import TrackMedicine from "./pages/TrackMedicine";
+import TrackMedicine from "./pages/TrackMedicine.jsx";
 import Supplier from "./pages/stakeholders/Supplier.jsx";
 import Manufacturer from "./pages/stakeholders/Manufacturer.jsx";
 import Distributor from "./pages/stakeholders/Distributor.jsx";
@@ -40,8 +39,7 @@ const App = () => (
           <Route path="/distributor" element={<Distributor />} />
           <Route path="/retailer" element={<Retailer />} />
           <Route path="*" element={<NotFound />} />
-
-
+          <Route path="/trackMedicine/:medicineId" element={<TrackMedicine />} />
         </Routes>
         <ChatBox />
         <Footer />
@@ -49,5 +47,4 @@ const App = () => (
     </TooltipProvider>
   </QueryClientProvider>
 );
-
 export default App;

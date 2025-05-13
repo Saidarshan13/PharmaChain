@@ -6,6 +6,8 @@ import SupplyChainABI from "../../artifacts/SupplyChain.json";
 import Loader from "../../components/loader";
 import StyledAlert from "../../components/alert";
 import ErrorPage from "../../components/ErrorPage";
+import { Html5QrcodeScanner } from "html5-qrcode";
+import "../../track/scanner.css";
 
 const Retailer = () => {
   const username = 'Retailer';
@@ -38,6 +40,7 @@ const [showPopup, setShowPopup] = useState(false);
       }
       return initialState;
     });
+  const [showScanner, setShowScanner] = useState(false);
 
 useEffect(() => {
   loadWeb3()
@@ -249,8 +252,77 @@ const loadWeb3 = async()=>{
         }, 3000);
 };
 
+const handleScanAndAction = async (medicineId) => {
+  if (navigator.geolocation) {
+    setisLoading(true);
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const lat = position.coords.latitude.toFixed(6);
+        const lng = position.coords.longitude.toFixed(6);
+        const currentTime = new Date();
+        const timeStr = currentTime.toLocaleString();
+        setLatitude((prev) => ({ ...prev, [medicineId]: lat }));
+        setLongitude((prev) => ({ ...prev, [medicineId]: lng }));
+        setTimestamp((prev) => ({ ...prev, [medicineId]: timeStr }));
+        try {
+          const locationData = `${lat},${lng},${timeStr}`;
+          // Fetch stage from blockchain
+          const stage = await SupplyChain.methods.showStage(medicineId).call();
+          let receipt;
+          if (stage === "Distribution Stage") {
+            receipt = await SupplyChain.methods
+              .Retail(medicineId, locationData)
+              .send({ from: currentaccount });
+          } else if (stage === "Retail Stage") {
+            receipt = await SupplyChain.methods
+              .sold(medicineId, locationData)
+              .send({ from: currentaccount });
+          } else {
+            setAlert("Medicine is not eligible for receive or sell at this stage.");
+            setisLoading(false);
+            return;
+          }
+          if (receipt) loadBlockchaindata();
+          setShowPopup(true);
+          setTimeout(() => setShowPopup(false), 3000);
+        } catch (err) {
+          setAlert("An error occurred during transaction!");
+        }
+        setisLoading(false);
+      },
+      (error) => {
+        setAlert("Error getting location: " + error.message);
+        setisLoading(false);
+      }
+    );
+  } else {
+    setAlert("Geolocation is not supported by this browser.");
+  }
+};
 
-
+useEffect(() => {
+  if (showScanner) {
+    const scanner = new Html5QrcodeScanner('reader', {
+      qrbox: { width: 250, height: 250 },
+      fps: 5,
+    });
+    const onScanSuccess = (decodedText) => {
+      setShowScanner(false);
+      // Only medicine ID is expected in QR
+      const id = parseInt(decodedText.trim());
+      if (id) {
+        handleScanAndAction(id);
+      } else {
+        setAlert("Invalid QR code format. QR should contain only the medicine ID.");
+      }
+      scanner.clear();
+    };
+    scanner.render(onScanSuccess, () => {});
+    return () => {
+      scanner.clear().catch(() => {});
+    };
+  }
+}, [showScanner]);
 
   return (
     <>{Alert !== "" && <StyledAlert message={Alert} onClose={() => setAlert("")} />}
@@ -359,6 +431,21 @@ const loadWeb3 = async()=>{
 
         
           <div className={`tab-content ${activeTab === 'medicine' ? 'active' : ''}`}>
+            <div className="medicine-list">
+          <div className="list-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <h3>Scan QR to Receive or Sell Medicine</h3>
+                  <button type="button" className="scan-btn" onClick={() => setShowScanner(true)} style={{ height: '40px', borderRadius: '8px', background: 'linear-gradient(135deg, #6E59A5 0%, #9b87f5 100%)', color: 'white', fontWeight: 600, fontSize: '1rem', border: 'none', padding: '0 20px', cursor: 'pointer' }}>
+                    Scan QR
+                  </button>
+                </div>
+                {showScanner && (
+                  <div className="scanner-overlay">
+                    <div className="scanner-modal">
+                      <button className="close-button" onClick={() => setShowScanner(false)}>&times;</button>
+                      <div id="reader" className="scanner-box"></div>
+                    </div>
+                  </div>
+                )}
                 {Tablar.length == 0? <h3>No data Found</h3> :
           <table className="list-items">
               <thead>
@@ -426,6 +513,7 @@ const loadWeb3 = async()=>{
   ))}
               </tbody>
             </table>}
+            </div>
           </div>
 
          <div className={`tab-content ${activeTab === 'history' ? 'active' : ''}`}>
