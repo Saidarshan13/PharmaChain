@@ -47,7 +47,7 @@ const HowItWorks: React.FC = () => {
         
         <div className="how-it-works-image">
           <img 
-            src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81" 
+            src="https://zurology.com/wp-content/uploads/2020/09/AdobeStock_300546901.jpeg" 
             alt="Supply chain visualization" 
           />
         </div>

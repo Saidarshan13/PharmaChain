@@ -12,7 +12,7 @@ export default function HeroSection() {
   useEffect(() => {
     console.log(isConnected);
     if(currentAccount){
-    if (currentAccount === "0x1d36bb9eb136c90a7778312b6716ec2242eb6193") {
+    if  (currentAccount=="0xda645600bbb0295e0afd4e8ae219d3b62e9ead4e") {
       setRole("Owner");
     } else {
       setRole("StakeHolders");
@@ -48,14 +48,14 @@ export default function HeroSection() {
               <button className="btn" onClick={handleClick}>
                 {role}
               </button>
-            <button className="btn btn-outline">Learn More</button>
+            <button className="btn btn-outline" onClick={() => location.reload()}>Learn More</button>
             </>)}
           </div>
         </div>
         <div className="hero-image">
           <div className="hero-blob"></div>
           <img 
-            src="https://images.unsplash.com/photo-1518770660439-4636190af475" 
+            src="https://media.istockphoto.com/id/2149711865/photo/artificial-intelligence-in-healthcare-ai-health-digital-healthcare-provider-telemedicine.jpg?s=612x612&w=0&k=20&c=W7TDnrCel13FvNFAMrKctUkh5upszN6UEXotOF75oik=" 
             alt="Blockchain technology illustration" 
             className="main-image"
           />

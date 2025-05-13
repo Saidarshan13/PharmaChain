@@ -25,7 +25,7 @@ const MedicineDetails: React.FC<MedicineDetailsProps> = ({ result }) => {
       <div className="medicine-details">
         <div className="detail-column">
           <div className="detail-item">
-            <span className="detail-label">Batch Number</span>
+            <span className="detail-label">Description</span>
             <span className="detail-value">{result.batchNumber}</span>
           </div>
           <div className="detail-item">
@@ -33,16 +33,7 @@ const MedicineDetails: React.FC<MedicineDetailsProps> = ({ result }) => {
             <span className="detail-value">{result.manufacturer}</span>
           </div>
         </div>
-        <div className="detail-column">
-          <div className="detail-item">
-            <span className="detail-label">Manufacture Date</span>
-            <span className="detail-value">{result.manufactureDate}</span>
-          </div>
-          <div className="detail-item">
-            <span className="detail-label">Expiry Date</span>
-            <span className="detail-value">{result.expiryDate}</span>
-          </div>
-        </div>
+        
       </div>
     </div>
   );

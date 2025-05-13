@@ -59,7 +59,7 @@
 import React, { useContext } from 'react';
 import { Wallet } from 'lucide-react';
 import './ConnectWallet.css';
-import { EthContext } from '../pages/ethContext'; // adjust path if needed
+import { EthContext } from '../pages/ethContext'; 
 
 interface EthContextType {
   isConnected: boolean;
@@ -97,3 +97,4 @@ const ConnectWallet: React.FC = () => {
 };
 
 export default ConnectWallet;
+

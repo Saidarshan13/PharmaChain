@@ -8,6 +8,7 @@ import Loader from "../components/loader";
 import StyledAlert from "../components/alert";
 import ErrorPage from "../components/ErrorPage";
 import { SearchCheck } from 'lucide-react';
+import { useParams } from 'react-router-dom';
 
 const TrackMedicine = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -19,10 +20,6 @@ const TrackMedicine = () => {
   const [errorPage, setErrorPage] = useState(false);
   const [isLoading, setisLoading] = useState(false);
   const [currentaccount, setCurrentaccount] = useState("");
-  
-  
-  
-
    useEffect(() => {
        loadWeb3();
        loadBlockchaindata().catch((err) => {
@@ -86,7 +83,10 @@ const TrackMedicine = () => {
       };
 
       const handleSearch = async(e) => {
-        e.preventDefault();
+        console.log(searchQuery)
+        if(searchQuery === '') return;
+        if(e !== null) e.preventDefault();
+        
         setHasSearched(true);
         try {
           const count = await SupplyChain.methods.medicineCtr().call();
@@ -129,7 +129,7 @@ const TrackMedicine = () => {
               {
                 stage: "Raw Material Sourcing",
                 coordinates:  locationData.RMS?.coordinates || "",
-                date: locationData.RMS?.locationTime +",  "+ locationData.RMS?.transactionTime || "",
+                date: locationData.RMS?.locationTime && locationData.RMS?.transactionTime ? locationData.RMS?.locationTime +",  "+ locationData.RMS?.transactionTime : "",
                 status: stakeholders.MAN?.id ? "completed" : "pending",
                 actor: stakeholders.RMS?.name || "Unknown",
                 description: stakeholders.MAN?.id
@@ -139,8 +139,8 @@ const TrackMedicine = () => {
               {
                 stage: "Manufacturing",
                 coordinates:  locationData.MAN?.coordinates || "",
-                date: locationData.MAN?.locationTime || "",
-                status: stakeholders.DIS?.id ? "completed" : "pending",
+                date: locationData.MAN?.locationTime && locationData.MAN?.transactionTime ? locationData.MAN?.locationTime +",  "+ locationData.MAN?.transactionTime : "",
+                status: stakeholders.DIS?.id ? "completed" : "pending", 
                 actor: stakeholders.MAN?.name || "Unknown",
                 description: stakeholders.DIS?.id
                   ? "Batch manufactured and quality checked"
@@ -149,7 +149,7 @@ const TrackMedicine = () => {
               {
                 stage: "Distribution",
                 coordinates:  locationData.DIS?.coordinates || "",
-                date: locationData.DIS?.locationTime || "",
+                date: locationData.DIS?.locationTime && locationData.DIS?.transactionTime ? locationData.DIS?.locationTime +",  "+ locationData.DIS?.transactionTime : "",
                 status: stage === "Retail Stage" || stage === "Medicine Sold" || stage === "Distribution Stage" ? "completed" : "pending",
                 actor: stakeholders.DIS?.name || "Unknown",
                 description: stakeholders.RET?.id
@@ -159,7 +159,7 @@ const TrackMedicine = () => {
               {
                 stage: "Retail",
                 coordinates:  locationData.RET?.coordinates || "",
-                date: locationData.RET?.locationTime || "",
+                date: locationData.RET?.locationTime && locationData.RET?.transactionTime ? locationData.RET?.locationTime +",  "+ locationData.RET?.transactionTime : "",
                 status: stage === "Retail Stage" || stage === "Medicine Sold" ? "completed" : "pending",
                 actor: stakeholders.RET?.name || "Unknown",
                 description: stakeholders.RET?.id
@@ -167,9 +167,9 @@ const TrackMedicine = () => {
                   : "Pending retail confirmation",
               },
               {
-                stage: "Quality Verification",
+                stage: "Sold",
                 coordinates:  locationData.SOL?.coordinates || "",
-                date: locationData.SOL?.locationTime || "",
+                date: locationData.SOL?.locationTime && locationData.SOL?.transactionTime ? locationData.SOL?.locationTime +",  "+ locationData.SOL?.transactionTime : "",
                 status: stage === "Retail Stage" || stage === "Medicine Sold" ? "completed" : "pending",
                 actor: stakeholders.RET?.name || "Regulatory Body",
                 description: stakeholders.RET?.id
@@ -191,7 +191,13 @@ const TrackMedicine = () => {
         
       };
 
-
+      const {medicineId}=useParams();
+      useEffect(() => {
+        if (medicineId && SupplyChain !== null) {
+          setSearchQuery(medicineId);
+            handleSearch(null);
+        }
+      }, [medicineId, SupplyChain]);
 
   useEffect(() => {
     if (searchResult) {
@@ -226,7 +232,6 @@ const TrackMedicine = () => {
     const completedStages = searchResult.timeline.filter(item => item.status === 'completed').length;
     return Math.min(100, Math.round((completedStages / 4) * 100));
   };
-
   return (
     <>
           {Alert !== "" && (
@@ -239,7 +244,7 @@ const TrackMedicine = () => {
       <div className="track-container">
         <h1 className="track-title">Medicine Tracker</h1>
         <p className="track-description">
-          Enter the medicine ID or batch number to track its journey through the supply chain. 
+          Enter the medicine ID to track its journey through the supply chain. 
           Verify authenticity and ensure quality with our blockchain-based tracking.
         </p>
 

@@ -21,7 +21,7 @@ const FeaturesSection: React.FC = () => {
     },
     {
       title: "Real-time Tracking",
-      description: "Monitor shipments in real-time and receive alerts about potential issues or delays.",
+      description: "Monitor medicine journey along with the timestamp and location of the medicine",
       icon: "📍"
     },
     {

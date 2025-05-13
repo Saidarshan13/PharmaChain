@@ -29,7 +29,7 @@ const SearchForm = ({ searchQuery, setSearchQuery, handleSearch }) => {
       };
 
       const onScanError = (error) => {
-        console.warn(`QR Scan Error: ${error}`);
+        //console.warn(`QR Scan Error: ${error}`);
       };
 
       scanner.render(onScanSuccess, onScanError);
@@ -51,7 +51,7 @@ const SearchForm = ({ searchQuery, setSearchQuery, handleSearch }) => {
           <Package size={28} className="inline-block mr-2" /> Track Your Medicine
         </CardTitle>
         <CardDescription>
-          Enter a medicine ID or batch number to verify authenticity and track its entire journey through our secure blockchain network
+          Enter a medicine  to verify authenticity and track its entire journey through our secure blockchain network
         </CardDescription>
       </CardHeader>
 
@@ -104,7 +104,7 @@ const SearchForm = ({ searchQuery, setSearchQuery, handleSearch }) => {
             </div>
             <div className="tip-content">
               <h4>Where to find your Medicine ID</h4>
-              <p>The Medicine ID is printed on the packaging, usually prefixed with "MED" or "LOT"</p>
+              <p>The Medicine ID is printed on the packaging of the medicine</p>
             </div>
           </div>
           
@@ -131,3 +131,4 @@ const SearchForm = ({ searchQuery, setSearchQuery, handleSearch }) => {
 };
 
 export default SearchForm;
+

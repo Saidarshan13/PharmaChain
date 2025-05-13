@@ -81,12 +81,7 @@ const Blogs: React.FC = () => {
             ))}
           </div>
           
-          <div className="blogs-pagination">
-            <button className="pagination-btn active">1</button>
-            <button className="pagination-btn">2</button>
-            <button className="pagination-btn">3</button>
-            <button className="pagination-btn next">Next →</button>
-          </div>
+        
         </div>
       </section>
       

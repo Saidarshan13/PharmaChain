@@ -95,26 +95,7 @@ const About: React.FC = () => {
         </div>
       </section>
       
-      <section className="team-section section">
-        <div className="container">
-          <h2 className="section-title">Our Team</h2>
-          <p className="section-subtitle">Meet the experts behind pharmaChain</p>
-          
-          <div className="team-grid">
-            {team.map((member, index) => (
-              <div className="team-card" key={index}>
-                <div className="team-image">
-                  <img src={member.image} alt={member.name} />
-                </div>
-                <h3 className="team-name">{member.name}</h3>
-                <p className="team-role">{member.role}</p>
-                <p className="team-bio">{member.bio}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      
+    
       <section className="contact-section section">
         <div className="container">
           <div className="contact-grid">
@@ -129,10 +110,10 @@ const About: React.FC = () => {
                   <strong>Email:</strong> contact@pharmachain.io
                 </li>
                 <li>
-                  <strong>Phone:</strong> +1 (555) 123-4567
+                  <strong>Phone:</strong> +91 1010 001  001
                 </li>
                 <li>
-                  <strong>Address:</strong> 123 Blockchain Avenue, San Francisco, CA 94107
+                  <strong>Address:</strong> Hyderabad,Telangana,India
                 </li>
               </ul>
             </div>

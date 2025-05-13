@@ -42,7 +42,7 @@ const Footer: React.FC = () => {
             <h4>Contact</h4>
             <ul className="footer-links">
               <li>Email: contact@pharmachain.io</li>
-              <li>Phone: +1 (555) 123-4567</li>
+              <li>Phone: +91 1010 001  001</li>
             </ul>
           </div>
         </div>
